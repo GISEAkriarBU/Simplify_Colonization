@@ -34,16 +34,35 @@ public class Town : MonoBehaviour
     [SerializeField]
     protected GameManager gameManager;
 
+    // ---- Week 7 (step 32.13) - these were missing ----
+    //0-food 1-sugar 2-tobacco 3-cotton 4-fur 5-lumber 6-ore 7-silver 8-horses 9-rum
+    //10-cigars 11-clothes 12-coats 13-trade goods 14-tools 15-musket
+    [SerializeField]
+    private int[] warehouse = new int[16];
+    public int[] Warehouse { get { return warehouse; } set { warehouse = value; } }
+
+    [SerializeField]
+    private int[] totalYieldThisTurn = new int[16]; //no. of all resource production this turn
+    public int[] TotalYieldThisTurn { get { return totalYieldThisTurn; } set { totalYieldThisTurn = value; } }
+
+    [SerializeField]
+    private int crossNum; //no. of crosses produced in this turn
+    public int CrossNum { get { return crossNum; } set { crossNum = value; } }
+
+    [SerializeField]
+    private int bellNum; //no. of bells produced in this turn
+    public int BellNum { get { return bellNum; } set { bellNum = value; } }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void TownInit(GameManager gameMgr, Faction fact)
