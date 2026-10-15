@@ -15,7 +15,7 @@ MonoBehaviour:
   unitName: Free Colonists
   landUnitType: 0
   strength: 1
-  movePointMax: 3
+  movePointMax: 99
   visualRange: 1
   unitIcon: {fileID: 21300000, guid: c86981ca7a32bd747ab2606392777d44, type: 3}
   armed: 0
