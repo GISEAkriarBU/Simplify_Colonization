@@ -92,7 +92,7 @@ public class Unit : MonoBehaviour, IPointerClickHandler
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -117,6 +117,9 @@ public class Unit : MonoBehaviour, IPointerClickHandler
     {
         curHex = hex;
         curPos = hex.Pos;
+
+        if (!hex.UnitsInHex.Contains(this))
+            hex.UnitsInHex.Add(this);
     }
 
     public void ToggleBorder(bool flag, Color32 color)
@@ -172,7 +175,11 @@ public class Unit : MonoBehaviour, IPointerClickHandler
         //Debug.Log($"UnitMovementP-{movePoint}");
 
         if (target.MoveCost > movePoint)
+        {
+            Debug.Log($"[Unit] {unitName} cannot move: hex cost {target.MoveCost} > move points {movePoint}. " +
+                "If this says 0, set Move Point Max in the unit's Data asset."); //DEBUG - remove later
             return;
+        }
 
         isMoving = true;
         targetHex = target;

@@ -119,18 +119,25 @@ public class GameManager : MonoBehaviour
         GenerateAllEuropeanExplorerUnits();
         GenerateAllNativeTowns();
         GenerateAllNativeUnits();
+
+        if (curUnit == null)
+            SelectPlayerFirstUnit();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Keyboard.current == null)
+            return;
+
         if (Keyboard.current.iKey.wasPressedThisFrame)
             ToggleHexText();
 
         if (Keyboard.current.tabKey.wasPressedThisFrame)
             SelectNextPlayerUnit();
 
-        if (Keyboard.current.backspaceKey.wasPressedThisFrame)
+        //only during our own turn - otherwise Backspace restarts the AI turn and keeps the mouse locked
+        if (Keyboard.current.backspaceKey.wasPressedThisFrame && playerTurn)
             Endturn();
     }
 

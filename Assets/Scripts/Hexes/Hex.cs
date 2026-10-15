@@ -118,13 +118,13 @@ public class Hex : MonoBehaviour, IPointerClickHandler
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void RandomTerrainSprite(Sprite[] sprites)
@@ -227,13 +227,23 @@ public class Hex : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        Debug.Log($"[Hex] {eventData.button} click on {x},{y}"); //DEBUG - remove later
+
         if (eventData.button == PointerEventData.InputButton.Right)
         {
-            //Debug.Log($"Right Click-Hex:{x}, {y}");
+            if (gameMgr == null || gameMgr.CurUnit == null)
+            {
+                Debug.LogWarning("[Hex] No unit selected (CurUnit is null) - left-click your ship or press Tab first.");
+                return;
+            }
+
             if (gameMgr.CheckIfHexIsAdjacent(gameMgr.CurUnit.CurHex, this))
             {
-                //Debug.Log("Adjacent-True");
                 gameMgr.CurUnit.PrepareMoveToHex(this);
+            }
+            else
+            {
+                Debug.Log("[Hex] Not adjacent to the selected unit."); //DEBUG - remove later
             }
         }
     }
