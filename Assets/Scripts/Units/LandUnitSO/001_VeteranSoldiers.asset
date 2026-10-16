@@ -15,9 +15,9 @@ MonoBehaviour:
   unitName: Veteran Soldiers
   landUnitType: 1
   strength: 2
-  movePointMax: 4
+  movePointMax: 5
   visualRange: 1
   unitIcon: {fileID: 21300000, guid: 7bf1fda7a736db54d8c38182c0bb7970, type: 3}
-  armed: 0
-  hasMusket: 0
+  armed: 1
+  hasMusket: 1
   hasHorse: 0
