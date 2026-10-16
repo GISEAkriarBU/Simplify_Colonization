@@ -37,13 +37,13 @@ public class UIManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void SetupHexSlots(Hex centerHex, Hex[] aroundHexes)
@@ -122,6 +122,8 @@ public class UIManager : MonoBehaviour
 
     public void SetupCurrentTown(Hex curHex, Hex[] aroundHexes)
     {
+        DestroyOldUnitDrag(); //pressing Enter twice must not create duplicate icons
+
         SetupHexSlots(curHex, aroundHexes);
         SetupUnitDragOutsideTown(curHex);
         SetupUnitDragWorkingInTerrain();

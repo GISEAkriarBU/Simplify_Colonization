@@ -19,16 +19,26 @@ public class UnitDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     [SerializeField]
     private TerrainSlot terrainSlot;
 
+    private CanvasGroup canvasGroup;
+
+    void Awake()
+    {
+        //lets the dragged icon ignore raycasts, so the slot under the mouse receives the drop
+        canvasGroup = GetComponent<CanvasGroup>();
+        if (canvasGroup == null)
+            canvasGroup = gameObject.AddComponent<CanvasGroup>();
+    }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void UnitInit(LandUnit landUnit)
@@ -43,6 +53,7 @@ public class UnitDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
         unitImage.raycastTarget = false;
+        canvasGroup.blocksRaycasts = false;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -54,6 +65,7 @@ public class UnitDrag : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     {
         transform.SetParent(iconParent);
         unitImage.raycastTarget = true;
+        canvasGroup.blocksRaycasts = true;
     }
 
     public void QuitOldTerrainSlot()

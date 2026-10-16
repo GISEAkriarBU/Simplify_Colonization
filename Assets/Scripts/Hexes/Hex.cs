@@ -20,6 +20,9 @@ public enum HexType
 
 public class Hex : MonoBehaviour, IPointerClickHandler
 {
+    // When true, fog + dark are never shown (set from GameManager "Reveal All Hexes")
+    public static bool RevealAllHexes = false;
+
     [SerializeField]
     private int x;
     public int X { get { return x; } set { x = value; } }
@@ -172,6 +175,12 @@ public class Hex : MonoBehaviour, IPointerClickHandler
                 moveCost += 1;
             }
         }
+
+        if (RevealAllHexes)
+        {
+            ToggleFog(false);
+            ToggleDark(false);
+        }
     }
 
     public void ToggleAllBasicText(bool flag)
@@ -203,12 +212,12 @@ public class Hex : MonoBehaviour, IPointerClickHandler
 
     private void ToggleFog(bool flag)
     {
-        fogSprite.gameObject.SetActive(flag);
+        fogSprite.gameObject.SetActive(flag && !RevealAllHexes);
     }
 
     private void ToggleDark(bool flag)
     {
-        darkSprite.gameObject.SetActive(flag);
+        darkSprite.gameObject.SetActive(flag && !RevealAllHexes);
     }
 
     public void DiscoverHex()

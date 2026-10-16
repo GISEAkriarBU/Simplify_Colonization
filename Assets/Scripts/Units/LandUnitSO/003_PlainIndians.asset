@@ -15,7 +15,7 @@ MonoBehaviour:
   unitName: Plain Indians
   landUnitType: 3
   strength: 2
-  movePointMax: 99
+  movePointMax: 4
   visualRange: 1
   unitIcon: {fileID: 21300000, guid: 57884aa89c0b9ef4fa0358b3ee573fa5, type: 3}
   armed: 0

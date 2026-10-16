@@ -59,18 +59,18 @@ public class TerrainSlot : MonoBehaviour, IDropHandler
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void OnDrop(PointerEventData eventData)
     {
-        if (centerHex || hex.Labor != null)
+        if (centerHex || hex == null || hex.Labor != null)
             return;
 
         GameObject unitObj = eventData.pointerDrag;
@@ -88,8 +88,13 @@ public class TerrainSlot : MonoBehaviour, IDropHandler
 
     public void HexSlotInit(Hex hexData)
     {
+        //reset first, so icons from a previously opened town never stay on screen
+        forestImage.gameObject.SetActive(false);
+        townImage.gameObject.SetActive(false);
+
         if (hexData != null)
         {
+            terrainImage.enabled = true;
             hex = hexData;
             terrainImage.sprite = hex.TerrainSprite.sprite;
 
@@ -104,6 +109,12 @@ public class TerrainSlot : MonoBehaviour, IDropHandler
                 townImage.sprite = hex.Town.TownSprite.sprite;
                 townImage.gameObject.SetActive(true);
             }
+        }
+        else
+        {
+            //no hex here (edge of the map)
+            hex = null;
+            terrainImage.enabled = false;
         }
     }
 }

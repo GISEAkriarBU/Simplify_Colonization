@@ -27,6 +27,10 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private bool showingText;
 
+    [Header("Debug")]
+    [SerializeField]
+    private bool revealAllHexes = true; //tick = whole map visible (no fog / dark)
+
     [SerializeField]
     private int oceanEdgeIndex;
 
@@ -105,6 +109,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+        Hex.RevealAllHexes = revealAllHexes;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -136,8 +141,7 @@ public class GameManager : MonoBehaviour
         if (Keyboard.current.tabKey.wasPressedThisFrame)
             SelectNextPlayerUnit();
 
-        //only during our own turn - otherwise Backspace restarts the AI turn and keeps the mouse locked
-        if (Keyboard.current.backspaceKey.wasPressedThisFrame && playerTurn)
+        if (Keyboard.current.backspaceKey.wasPressedThisFrame)
             Endturn();
     }
 
@@ -552,6 +556,16 @@ public class GameManager : MonoBehaviour
             curUnit.ToggleBorder(false, Color.green);
 
         Debug.Log("End Turn");
+
+        if (AIManager.instance == null)
+        {
+            Debug.LogError("AIManager component is missing in the scene! Add it to the GameManager object. Skipping AI turn.");
+            ResetAllUnits(playerFaction);
+            gameTurn++;
+            playerTurn = true;
+            return;
+        }
+
         playerTurn = false;
         AIManager.instance.StartAITurn();
     }
